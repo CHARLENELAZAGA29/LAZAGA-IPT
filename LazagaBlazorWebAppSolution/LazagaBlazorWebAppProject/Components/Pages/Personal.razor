@@ -1,0 +1,33 @@
+﻿@page "/Personal"
+@rendermode InteractiveServer
+
+<PageTitle>Personal</PageTitle>
+
+<h1 style="font-weight:800; color:#444; font-family:Arial;">INFO</h1>
+
+<!-- Counter Bar -->
+<div style="background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+            color: #333; padding: 20px; border-radius: 15px;
+            display: flex; align-items: center; justify-content: space-between; width: 450px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+
+    <!-- Picture inside the bar -->
+    <img src="image/ProfileInfo.jpg"
+         style="width:70px; height:70px; border-radius:50%; border:3px solid white; box-shadow:0 2px 6px rgba(0,0,0,0.2);" />
+
+    <!-- Text + Counter -->
+    <div style="flex-grow: 1; text-align: center;">
+        <p role="status" style="margin: 0; font-size: 1.4rem; font-weight:700; color:#333;">
+            Personal Information
+        </p>
+        <p style="margin: 0; font-size: 0.9rem; color: #555;">
+        </p>
+    </div>
+
+    <!-- Button -->
+    <a href="/..." class="btn btn-light"
+       style="font-weight:600; background-color:#ffe4e1; border:none; color:#333;
+              padding:8px 16px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+        View
+    </a>
+</div>
