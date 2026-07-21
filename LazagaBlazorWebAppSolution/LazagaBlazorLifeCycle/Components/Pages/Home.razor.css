@@ -1,0 +1,98 @@
+﻿/* Home.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+.navbar {
+    background: linear-gradient(90deg, #052767, #3a0647);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.tile {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.2s;
+}
+
+    .tile:hover {
+        transform: scale(1.05);
+    }
+
+    .tile img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    .tile h3 {
+        margin: 10px 0 5px;
+        font-size: 1.2rem;
+        color: #052767;
+    }
+
+    .tile p {
+        font-size: 1rem;
+        color: #333;
+    }
+
+.price {
+    font-weight: bold;
+    color: #3a0647;
+    margin-top: 8px;
+}
+
+.order-btn {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #052767;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+    .order-btn:hover {
+        background: #3a0647;
+    }
+body {
+    background-image: url('image/TILEBACK.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+}
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('image/TILEBACK.png');
+        background-size: cover;
+        background-position: center;
+        filter: blur(8px) brightness(0.6);
+        z-index: -1;
+    }

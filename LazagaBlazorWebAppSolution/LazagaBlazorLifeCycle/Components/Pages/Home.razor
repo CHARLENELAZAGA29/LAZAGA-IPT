@@ -1,0 +1,88 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>SHOP</PageTitle>
+
+
+    <div class="navbar">🛠 TILES CENTER</div>
+    
+    <!-- ceramic-->
+    <div class="tiles">
+        <div class="tile">
+            <img src="image/CERAMIC.jpg" />
+            <h3>Ceramic Tile</h3>
+            <p>Durable and stylish for floors</p>
+            <div class="price">₱250 per box</div>
+            <button class="order-btn" @onclick="addCeramic">BUY</button>
+        </div>
+
+        <!--granite-->
+        <div class="tile">
+            <img src="image/GRANITE.jpg" />
+            <h3>Granite Tile</h3>
+            <p>Premium finish for kitchens</p>
+            <div class="price">₱450 per box</div>
+        <button class="order-btn" @onclick="addGranite">BUY</button>
+        </div>
+
+        <!--porcelain-->
+        <div class="tile">
+            <img src="image/PORCELAIN.jpg" />
+            <h3>Porcelain Tile</h3>
+            <p>Water-resistant, perfect for bathrooms</p>
+            <div class="price">₱380 per box</div>
+            <button class="order-btn" @onclick="addPorcelain">BUY</button>
+        </div>
+
+        <!--marble-->
+        <div class="tile">
+            <img src="image/MARBLE.jpg" />
+            <h3>Marble Tile</h3>
+            <p>Water-resistant, perfect for bathrooms</p>
+            <div class="price">₱580 per box</div>
+            <button class="order-btn" @onclick="addMarble">BUY</button>
+        </div>
+    </div>
+
+
+    <div class="cart" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; padding: 25px; border: 2px solid black; background-color: white; border: 12px color: black; width: 280px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
+
+        <h2 style=" margin: 10px 0 0 0; color: black;">
+            TOTAL: $@GetTotalPrice()
+        </h2>
+
+
+    </div>
+
+@code{
+    private int ceramicCount = 0;
+    private int graniteCount = 0;
+    private int porcelainCount = 0;
+    private int marbleCount = 0;
+
+    private const int ceramicPrice = 250;
+    private const int granitePrice = 450;
+    private const int porcelainPrice = 380;
+    private const int marblePrice = 580;
+
+    private void addCeramic() => ceramicCount++;
+    private void addGranite() => graniteCount++;
+    private void addPorcelain() => graniteCount++;
+    private void addMarble() => graniteCount++;
+
+    private int GetTotalPrice()
+    {
+        return  (ceramicCount * ceramicPrice) +
+                (graniteCount * granitePrice) +
+                (porcelainCount * porcelainPrice) +
+                (marbleCount * marblePrice);
+    }
+
+
+
+
+
+
+
+
+}
