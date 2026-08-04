@@ -1,0 +1,32 @@
+﻿@page "/"
+@using System.Net.Http.Json
+@using LAZAGA_API_.Models
+@inject HttpClient Http
+
+<PageTitle>Home</PageTitle>
+
+<h1>DOGS</h1>
+
+
+@if(telemetryData != null)
+{
+    <ul>
+        @foreach (var dawg in telemetryData)
+        {
+            <img src="@dawg.Message" alt="JaysGwapo"/>
+           <h2>@dawg.Status</h2>
+        }
+    </ul>
+}
+
+@code{
+
+    private List<DogAPI>? telemetryData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        string DogURL = "https://dog.ceo/api/breed/affenpinscher/images/random";
+        var DogName = await Http.GetFromJsonAsync<DogAPI>(DogURL);
+        if (DogName != null) telemetryData = new List<DogAPI> { DogName };
+    }
+}
