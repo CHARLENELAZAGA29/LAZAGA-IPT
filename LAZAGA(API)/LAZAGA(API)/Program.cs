@@ -1,14 +1,26 @@
 using LAZAGA_API_.Components;
 
+using LAZAGA_API_.Components.ENDPOINTS;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddScoped(sp => new HttpClient()); 
+
+builder.Services.AddScoped(sp => new HttpClient());
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.MapAKO();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

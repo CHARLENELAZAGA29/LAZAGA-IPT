@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/chubby"
 @using System.Net.Http.Json
 @using LAZAGA_API_.Models
 @inject HttpClient Http
@@ -25,7 +25,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        string DogURL = "https://dog.ceo/api/breed/affenpinscher/images/random";
+        string DogURL = "https://localhost:7116/api/AKO";
         var DogName = await Http.GetFromJsonAsync<DogAPI>(DogURL);
         if (DogName != null) telemetryData = new List<DogAPI> { DogName };
     }

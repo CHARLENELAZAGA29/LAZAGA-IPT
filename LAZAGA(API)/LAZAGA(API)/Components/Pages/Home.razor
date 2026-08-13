@@ -1,0 +1,35 @@
+﻿@page "/"
+@using System.Net.Http.Json
+@using LAZAGA_API_.Components.Models
+@inject HttpClient Http
+@inject NavigationManager Nav
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<h1>Dog Profile</h1>
+
+@if (HI == null)
+{
+    <h2>Loading...</h2>
+}
+else
+{
+    <h2>@HI.Dog</h2>
+    <h2>@HI.Breed</h2>
+    <h2>@HI.Price</h2>
+}
+
+
+@code{
+    private Models.AKOLANGTO? HI;
+
+    protected override async Task OnInitializedAsync()
+    {
+        string api = "https://localhost:7116/api/AKO";
+        HI = await Http.GetFromJsonAsync<Models.AKOLANGTO>(api);
+    }
+}
