@@ -1,0 +1,136 @@
+﻿@page "/"
+@using System.Net.Http.Json
+@using LazagaAPI.Components.Models
+@inject HttpClient Http
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Mvc;
+
+
+<PageTitle>Home Form</PageTitle>
+
+<!-- Error Display Area -->
+@if (errorMessage != null)
+{
+    <div style="background-color: #ffcccc; color: red; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+        <strong>Error:</strong> @errorMessage
+    </div>
+}
+
+<!-- MAIN CONTAINER: flex puts the two child divs side-by-side -->
+<div style="display: flex; gap: 50px; align-items: flex-start; padding: 20px;">
+
+    <!-- LEFT SIDE: The Form -->
+    <div style="display: flex; flex-direction: column; width: 300px; gap: 15px;">
+        <div>
+            <label>Full Name:</label>
+            <input type="text" @bind="studentToSave.fullName" class="form-control" placeholder="e.g. Charlene Dane P. Lazaga" />
+        </div>
+        <div>
+            <label>ID Number:</label>
+            <input type="text" @bind="studentToSave.idNumber" class="form-control" placeholder="e.g. 24-0548" />
+        </div>
+        <div>
+            <label>Program:</label>
+            <input type="text" @bind="studentToSave.program" class="form-control" placeholder="e.g. BS Information Technology" />
+        </div>
+        <div>
+            <label>Birth Date:</label>
+            <input type="text" @bind="studentToSave.birthdate" class="form-control" placeholder="e.g. July 29, 2005" />
+        </div>
+        <div>
+            <label>Age:</label>
+            <input type="number" @bind="studentToSave.age" class="form-control" />
+        </div>
+
+        <button @onclick="SendDataApi" class="btn btn-primary">Submit Data</button>
+    </div>
+
+
+    <!-- RIGHT SIDE: The Display Area -->
+    <div style="padding-left: 50px; border-left: 2px solid #ccc;">
+
+        @if (models != null)
+        {
+            <h4 style="color: gray;">Current Database Record:</h4>
+
+            <!-- Added a nice profile card box so it looks professional! -->
+            <div style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; border: 1px solid #ddd; min-width: 250px;">
+                <h2 style="margin-top: 0; color: #007bff;">@models.fullName</h2>
+                <hr />
+                <p><strong>ID:</strong> @models.idNumber</p>
+                <p><strong>Program:</strong> @models.program</p>
+                <p><strong>Birth Date:</strong> @models.birthdate</p>
+                <p><strong>Age:</strong> @models.age</p>
+            </div>
+        }
+        else
+        {
+            <!-- This shows up before you submit anything -->
+            <h3 style="color: gray; margin-top: 50px;">Waiting for data...</h3>
+        }
+
+    </div>
+</div>
+
+@code {
+    private myModel? models;
+    private myModel studentToSave = new myModel();
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await fetchData();
+    }
+
+    // --- GET DATA LOGIC ---
+    public async Task fetchData()
+    {
+        try
+        {
+            errorMessage = null;
+            string myURL = "https://localhost:7287/api/get";
+
+            // Grabs the data from the API
+            models = await Http.GetFromJsonAsync<myModel>(myURL);
+
+            // 👈 NEW: This forces Blazor to instantly redraw the screen with your new data!
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"GET Error: {ex.Message}";
+        }
+    }
+
+    // --- SEND DATA LOGIC ---
+    private async Task SendDataApi()
+    {
+        try
+        {
+            errorMessage = null;
+            string myURL = "https://localhost:7287/api/post";
+
+            // Sends the data to the API
+            var response = await Http.PostAsJsonAsync(myURL, studentToSave);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // If successful, immediately fetch the new data so it pops up on the right
+                await fetchData();
+
+                // Clear the form boxes so you can type a new one
+                studentToSave = new myModel();
+            }
+            else
+            {
+                string details = await response.Content.ReadAsStringAsync();
+                errorMessage = $"POST Failed: {response.StatusCode} - {details}";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"POST Error: {ex.Message}";
+        }
+    }
+}
