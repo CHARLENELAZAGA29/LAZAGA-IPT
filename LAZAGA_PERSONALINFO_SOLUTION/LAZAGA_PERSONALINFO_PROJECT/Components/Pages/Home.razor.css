@@ -1,0 +1,53 @@
+/* CSS for Home component */
+.homepage-bg {
+    background-image: url('/image/PageBack.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* Full homepage cover */
+    min-height: 100vh;
+    width: 100%;
+    margin: -24px;
+    padding: 24px;
+    position: relative;
+}
+
+    /* This adds dark blur overlay so your white card is readable */
+    .homepage-bg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4); /* dark transparent overlay */
+        backdrop-filter: blur(3px);
+        z-index: 0;
+    }
+
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+    position: relative;
+    z-index: 1; /* make card appear above overlay */
+}
+
+.info-card {
+    background: white;
+    padding: 35px 50px;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    text-align: center;
+    min-width: 350px;
+    position: relative;
+    z-index: 1;
+}
+
+.name {
+    font-size: 22px;
+    font-weight: bold;
+    color: #1a5a34;
+}
