@@ -5,13 +5,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-builder.Services.AddScoped(sp => new HttpClient());
+
+builder.Services.AddScoped(sp => {
+    var nav = sp.GetRequiredService<Microsoft.AspNetCore.Components.NavigationManager>();
+    return new HttpClient { BaseAddress = new Uri(nav.BaseUri) };
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build(); //webapplication
+var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
@@ -22,9 +26,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
-app.UseStaticFiles();
 
-// 
 app.MapControllers();
 app.MapEndpoints();
 app.MapRazorComponents<App>()

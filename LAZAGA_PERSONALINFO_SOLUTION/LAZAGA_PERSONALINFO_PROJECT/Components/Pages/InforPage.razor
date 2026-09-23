@@ -1,0 +1,61 @@
+﻿@page "/InfoPage"
+
+@using LAZAGA_PERSONALINFO_PROJECT.Components.Model
+@inject HttpClient Http
+@rendermode InteractiveServer
+
+<div class="homepage-bg">
+    <div class="center-wrapper">
+        <div class="info-card">
+
+            <h3>Student Information</h3>
+
+            <p class="name">@firstN?.FirstN @middleN?.MiddleN @lastN?.LastN</p>
+            <p>@course?.Course</p>
+            <p>@Year?.year</p>
+            <p>@birthday?.birthday</p>
+            <p>@age?.Age</p>
+
+            
+        </div>
+    </div>
+</div>
+
+       
+
+
+
+
+@code {
+    MyFN? firstN;
+    MyMN? middleN;
+    MyLN? lastN;
+    Mycourse? course;
+    MyYear? Year;
+    MyBirthday? birthday;
+    Myage? age;
+    string errorMessage = "Loading...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            firstN = await Http.GetFromJsonAsync<MyFN>("/api/get");
+            middleN = await Http.GetFromJsonAsync<MyMN>("/api/get/MD");
+            lastN = await Http.GetFromJsonAsync<MyLN>("/api/get/LN");
+            course = await Http.GetFromJsonAsync<Mycourse>("/api/get/course");
+            Year = await Http.GetFromJsonAsync<MyYear>("/api/get/Year");
+            birthday = await Http.GetFromJsonAsync<MyBirthday>("/api/get/MyBirthday");
+            age = await Http.GetFromJsonAsync<Myage>("/api/get/MyAge");
+
+            
+
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+
+}
+
