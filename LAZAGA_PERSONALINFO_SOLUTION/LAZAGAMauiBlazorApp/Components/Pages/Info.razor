@@ -1,0 +1,70 @@
+﻿@page "/info"
+@using LAZAGAMauiBlazorApp.Components.Models
+@inject LAZAGAMauiBlazorApp.Components.Endpoint.InfoEndpoint InfoApi
+
+<div class="info-wrapper">
+    <h2 class="page-title">My Information</h2>
+    <p class="page-subtitle">@status</p>
+
+    <div class="id-body">
+        <div class="info-grid">
+            <div class="item">
+                <label>First Name</label>
+                <b>@first</b>
+            </div>
+            <div class="item">
+                <label>Middle Name</label>
+                <b>@middle</b>
+            </div>
+            <div class="item">
+                <label>Last Name</label>
+                <b>@last</b>
+            </div>
+            <div class="item">
+                <label>Course</label>
+                <b>@course</b>
+            </div>
+            <div class="item">
+                <label>Year</label>
+                <b>@year</b>
+            </div>
+            <div class="item">
+                <label>Birthday</label>
+                <b>@birthday</b>
+            </div>
+            <div class="item full">
+                <label>Age</label>
+                <b>@age years old</b>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    string first = "", middle = "", last = "", course = "", year = "", birthday = "", age = "";
+    string status = "Connecting...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var f = await InfoApi.GetFirstAsync();
+            first = f?.FirstN ?? "Charlene Dane (test)";
+
+            // safe calls
+            try { var m = await InfoApi.GetMiddleAsync(); middle = m?.MiddleN ?? ""; } catch { middle = "-"; }
+            try { var l = await InfoApi.GetLastAsync(); last = l?.LastN ?? ""; } catch { last = "-"; }
+            try { var c = await InfoApi.GetCourseAsync(); course = c?.Course ?? ""; } catch { course = "-"; }
+            try { var y = await InfoApi.GetYearAsync(); year = y?.Year ?? ""; } catch { year = "-"; }
+            try { var b = await InfoApi.GetBirthdayAsync(); birthday = b?.Birthday ?? ""; } catch { birthday = "-"; }
+            try { var a = await InfoApi.GetAgeAsync(); age = a?.Age ?? ""; } catch { age = "-"; }
+
+            status = "API Connected ✓ - " + first;
+        }
+        catch (Exception ex)
+        {
+            status = "Error: " + ex.Message;
+        }
+    }
+}

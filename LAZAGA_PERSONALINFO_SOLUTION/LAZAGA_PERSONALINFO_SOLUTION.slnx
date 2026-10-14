@@ -1,3 +1,11 @@
 <Solution>
+  <Project Path="../API-LAZAGA/API-LAZAGA.csproj" />
+  <Project Path="../LAZAGA(API)/LAZAGA(API)/LAZAGA(API).csproj" />
+  <Project Path="../LazagaBlazorWebAppSolution/LazagaBlazorLifeCycle/LazagaBlazorLifeCycle.csproj" />
+  <Project Path="../LazagaBlazorWebAppSolution/LazagaBlazorWebAppProject/LazagaBlazorWebAppProject.csproj" />
+  <Project Path="LazagaAPI/LazagaAPI/LazagaAPI.csproj" />
+  <Project Path="LAZAGAMauiBlazorApp/LAZAGAMauiBlazorApp.csproj" Id="c42c7e45-1a37-45b8-a017-be0d41b127be">
+    <Deploy Solution="Debug|*" />
+  </Project>
   <Project Path="LAZAGA_PERSONALINFO_PROJECT/LAZAGA_PERSONALINFO_PROJECT.csproj" />
 </Solution>

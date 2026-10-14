@@ -1,0 +1,22 @@
+﻿@inherits LayoutComponentBase
+
+<div class="app-wrapper">
+    <main class="main-content">
+        <article class="content">
+            @Body
+        </article>
+    </main>
+
+    <nav class="bottom-nav">
+        <NavLink href="" Match="NavLinkMatch.All" class="nav-item">
+            <span class="nav-icon">🏠</span>
+            <small>Home</small>
+        </NavLink>
+        <NavLink href="info" class="nav-item">
+            <span class="nav-icon">👤</span>
+            <small>Info</small>
+        </NavLink>
+       
+    </nav>
+</div>
+
